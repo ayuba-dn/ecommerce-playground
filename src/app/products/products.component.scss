@@ -1,0 +1,8 @@
+.product-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.loader {
+    margin-top: 60rem; //moves it out of the viewport
+}
