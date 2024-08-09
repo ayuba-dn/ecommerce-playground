@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
 
 export interface Product {
   id: number;
@@ -14,6 +14,14 @@ export interface Product {
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })
-export class ProductDetailsComponent {
+export class ProductDetailsComponent implements DoCheck {
   @Input() product!: Product;
+
+  ngDoCheck(): void {
+    console.log('Change detection triggered in DetailsComponent!');
+  }
+
+  addToCart(): void {
+    console.log('Product added to cart!');
+  }
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   Product,
@@ -18,7 +18,7 @@ import { ProductRecommendationsComponent } from '../product-recommendations/prod
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, DoCheck {
   products: Product[] = [];
   showComments = false;
 
@@ -30,5 +30,9 @@ export class ProductComponent implements OnInit {
       .subscribe((response: any) => {
         this.products = [...response.data, ...response.data];
       });
+  }
+
+  ngDoCheck(): void {
+    console.log('Change detection triggered in ProductComponent!');
   }
 }
