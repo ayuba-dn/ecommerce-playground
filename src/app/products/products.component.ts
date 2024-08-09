@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   Product,
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { ProductRecommendationsComponent } from '../product-recommendations/product-recommendations.component';
+import { ProductsService } from '../products-service.service';
 
 @Component({
   selector: 'app-products',
@@ -18,21 +19,27 @@ import { ProductRecommendationsComponent } from '../product-recommendations/prod
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductComponent implements OnInit, DoCheck {
-  products: Product[] = [];
-  showComments = false;
+export class ProductComponent implements OnInit {
+  products = this.productService.productSignal;
 
-  constructor(private httpService: HttpClient) {}
+  constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
-    this.httpService
-      .get('https://reqres.in/api/products')
-      .subscribe((response: any) => {
-        this.products = [...response.data, ...response.data];
-      });
-  }
-
-  ngDoCheck(): void {
-    console.log('Change detection triggered in ProductComponent!');
+    setTimeout(() => {
+      this.products.set([
+        {
+          id: 1,
+          name: 'iPhone 12',
+          year: 2020,
+          color: 'Blue',
+        },
+        {
+          id: 2,
+          name: 'Samsung Galaxy S21',
+          year: 2021,
+          color: 'Black',
+        },
+      ]);
+    }, 5000);
   }
 }

@@ -5,6 +5,7 @@ import {
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { CommonModule } from '@angular/common';
+import { ProductsService } from '../products-service.service';
 
 @Component({
   selector: 'product-recommendations',
@@ -14,18 +15,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-recommendations.component.scss',
 })
 export class ProductRecommendationsComponent implements OnInit, DoCheck {
-  products: Product[] = [];
+  products = this.productService.recommendationsSignal;
   showComments = false;
 
-  constructor(private httpService: HttpClient) {}
+  constructor(private productService: ProductsService) {}
 
-  ngOnInit(): void {
-    this.httpService
-      .get('https://reqres.in/api/products')
-      .subscribe((response: any) => {
-        this.products = response.data;
-      });
-  }
+  ngOnInit(): void {}
 
   ngDoCheck(): void {
     console.log('Change detection triggered in RecommendationComponent!');
