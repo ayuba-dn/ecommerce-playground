@@ -6,6 +6,7 @@ import {
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { ProductRecommendationsComponent } from '../product-recommendations/product-recommendations.component';
+import { set } from 'lodash';
 
 @Component({
   selector: 'app-products',
@@ -30,6 +31,10 @@ export class ProductComponent implements OnInit, DoCheck {
       .subscribe((response: any) => {
         this.products = [...response.data, ...response.data];
       });
+
+    setTimeout(() => {
+      this.products = [{ id: 1, name: 'Product 1', year: 2021, color: 'red' }];
+    }, 5000);
   }
 
   ngDoCheck(): void {
