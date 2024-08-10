@@ -24,23 +24,25 @@ export class ProductComponent implements OnInit {
   cartItems: Product[] = [];
   constructor(private productService: ProductsService) {}
 
+  helloWorld() {
+    console.log('Hello World!');
+  }
+
   ngOnInit(): void {
-    setTimeout(() => {
-      this.products.set([
-        {
-          id: 1,
-          name: 'iPhone 12',
-          year: 2020,
-          color: 'Blue',
-        },
-        {
-          id: 2,
-          name: 'Samsung Galaxy S21',
-          year: 2021,
-          color: 'Black',
-        },
-      ]);
-    }, 5000);
+    this.products.set([
+      {
+        id: 1,
+        name: 'iPhone 12',
+        year: 2020,
+        color: 'Blue',
+      },
+      {
+        id: 2,
+        name: 'Samsung Galaxy S21',
+        year: 2021,
+        color: 'Black',
+      },
+    ]);
   }
 
   addProductToCart(product: Product): void {

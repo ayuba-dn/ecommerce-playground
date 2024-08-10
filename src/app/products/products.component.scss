@@ -6,3 +6,12 @@
 .loader {
     margin-top: 60rem; //moves it out of the viewport
 }
+
+.cart {
+    border: 1px solid #a90909;
+    &:hover {
+        border: 1px solid #000;
+        background: #000;
+    }
+
+}
