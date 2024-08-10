@@ -5,7 +5,7 @@ import {
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '../products-service.service';
+import { ProductService } from '../products-service.service';
 
 @Component({
   selector: 'product-recommendations',
@@ -18,7 +18,7 @@ export class ProductRecommendationsComponent implements OnInit, DoCheck {
   products = this.productService.recommendationsSignal;
   showComments = false;
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {}
 
