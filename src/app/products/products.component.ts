@@ -12,37 +12,31 @@ import { ProductService } from '../product.service';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [
-    ProductDetailsComponent,
-    ProductRecommendationsComponent,
-    CommonModule,
-  ],
+  imports: [ProductDetailsComponent, CommonModule],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
 export class ProductComponent implements OnInit, DoCheck {
   products$: Observable<any> = new Observable();
+  products: Product[] = [];
   showComments = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(private httpService: HttpClient) {}
 
   ngOnInit(): void {
-    // this.httpService
-    //   .get('https://reqres.in/api/products')
-    //   .subscribe((response: any) => {
-    //     this.products = [...response.data, ...response.data];
-    //   });
-
+    this.httpService
+      .get('https://reqres.in/api/products')
+      .subscribe((response: any) => {
+        this.products = [...response.data, ...response.data];
+      });
     // setTimeout(() => {
     //   this.products = [{ id: 1, name: 'Product 1', year: 2021, color: 'red' }];
     // }, 5000);
-
     // Make the call to get products
-    this.products$ = this.productService.getProducts();
-
-    this.products$.subscribe((response: any) => {
-      console.log('Products fetched:', response);
-    });
+    // this.products$ = this.productService.getProducts();
+    // this.products$.subscribe((response: any) => {
+    //   console.log('Products fetched:', response);
+    // });
   }
 
   ngDoCheck(): void {

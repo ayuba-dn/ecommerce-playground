@@ -5,6 +5,8 @@ import {
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'product-recommendations',
@@ -14,17 +16,22 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-recommendations.component.scss',
 })
 export class ProductRecommendationsComponent implements OnInit, DoCheck {
+  products$: Observable<any> = new Observable();
   products: Product[] = [];
   showComments = false;
 
-  constructor(private httpService: HttpClient) {}
+  constructor(
+    private httpService: HttpClient,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
-    this.httpService
-      .get('https://reqres.in/api/products')
-      .subscribe((response: any) => {
-        this.products = response.data;
-      });
+    // this.httpService
+    //   .get('https://reqres.in/api/products')
+    //   .subscribe((response: any) => {
+    //     this.products = response.data;
+    //   });
+    this.products$ = this.productService.getProducts();
   }
 
   ngDoCheck(): void {

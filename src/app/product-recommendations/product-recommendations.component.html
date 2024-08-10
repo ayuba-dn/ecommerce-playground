@@ -1,7 +1,7 @@
 <div class="table-container">
     <h1>Recommended Items</h1>
-    <div class="product-section">
-        <app-product [product]="product" *ngFor="let product of products"></app-product>
+    <div class="product-section" *ngIf="products$ | async as products">
+        <app-product [product]="product" *ngFor="let product of products.data"></app-product>
     </div>
 
 <!--Some random product image or banner-->
