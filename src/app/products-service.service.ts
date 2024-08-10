@@ -51,7 +51,7 @@ export class ProductService {
           return timer(5000).pipe(switchMap(() => of(this.mockData)));
         })
       )
-      .subscribe((data) => this.productSignal.set(data.data));
+      .subscribe((data) => this.recommendationsSignal.set(data.data));
   }
 
   getProducts(): Observable<any> {
