@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,8 +8,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements DoCheck, OnInit {
   title = 'movies-app';
+
+  ngOnInit(): void {
+    console.log('AppComponent initialized!');
+  }
 
   ngDoCheck(): void {
     console.log('Change detection triggered in AppComponent!');
