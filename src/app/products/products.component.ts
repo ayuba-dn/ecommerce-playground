@@ -6,7 +6,8 @@ import {
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { ProductRecommendationsComponent } from '../product-recommendations/product-recommendations.component';
-import { set } from 'lodash';
+import { Observable } from 'rxjs';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-products',
@@ -20,21 +21,28 @@ import { set } from 'lodash';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductComponent implements OnInit, DoCheck {
-  products: Product[] = [];
+  products$: Observable<any> = new Observable();
   showComments = false;
 
-  constructor(private httpService: HttpClient) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.httpService
-      .get('https://reqres.in/api/products')
-      .subscribe((response: any) => {
-        this.products = [...response.data, ...response.data];
-      });
+    // this.httpService
+    //   .get('https://reqres.in/api/products')
+    //   .subscribe((response: any) => {
+    //     this.products = [...response.data, ...response.data];
+    //   });
 
-    setTimeout(() => {
-      this.products = [{ id: 1, name: 'Product 1', year: 2021, color: 'red' }];
-    }, 5000);
+    // setTimeout(() => {
+    //   this.products = [{ id: 1, name: 'Product 1', year: 2021, color: 'red' }];
+    // }, 5000);
+
+    // Make the call to get products
+    this.products$ = this.productService.getProducts();
+
+    this.products$.subscribe((response: any) => {
+      console.log('Products fetched:', response);
+    });
   }
 
   ngDoCheck(): void {
