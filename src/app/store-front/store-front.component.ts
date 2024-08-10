@@ -3,20 +3,16 @@ import { ProductRecommendationsComponent } from '../product-recommendations/prod
 import { ProductComponent } from '../products/products.component';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-store-front',
   standalone: true,
   imports: [ProductRecommendationsComponent, ProductComponent],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss',
+  templateUrl: './store-front.component.html',
+  styleUrl: './store-front.component.scss',
 })
-export class LayoutComponent implements DoCheck, OnInit {
+export class StoreFrontComponent implements DoCheck {
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('LayoutComponent initialized!');
-  }
-
   ngDoCheck(): void {
-    console.log('Change detection triggered in LayoutComponent!');
+    console.log('Change detection triggered in StoreFrontComponent!');
   }
 }
