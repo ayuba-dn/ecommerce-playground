@@ -26,12 +26,7 @@ export class ProductRecommendationsComponent implements OnInit, DoCheck {
   ) {}
 
   ngOnInit(): void {
-    // this.httpService
-    //   .get('https://reqres.in/api/products')
-    //   .subscribe((response: any) => {
-    //     this.products = response.data;
-    //   });
-    this.products$ = this.productService.getProducts();
+    this.products$ = this.productService.getProductsRecommendations();
   }
 
   ngDoCheck(): void {

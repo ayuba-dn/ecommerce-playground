@@ -16,6 +16,7 @@ export class ProductService {
   };
 
   private productSubject = new Subject<any>();
+  private productRecommendationSubject = new Subject<any>();
 
   constructor(private http: HttpClient) {
     // Start the process of emitting data
@@ -27,17 +28,26 @@ export class ProductService {
     this.http
       .get<any>(this.apiUrl)
       .pipe(
-        tap((data) => this.productSubject.next(data)),
+        tap((data) => {
+          this.productSubject.next(data);
+          this.productRecommendationSubject.next(data);
+        }),
         switchMap(() => {
           // After emitting real data, wait 5 seconds and then emit mocked data
           return timer(5000).pipe(switchMap(() => of(this.mockData)));
         })
       )
-      .subscribe((data) => this.productSubject.next(data));
+      .subscribe((data) => this.productRecommendationSubject.next(data));
   }
 
   getProducts(): Observable<any> {
     return this.productSubject.asObservable().pipe(
+      shareReplay(1) // Ensure the observable is shared and replayed to new subscribers
+    );
+  }
+
+  getProductsRecommendations(): Observable<any> {
+    return this.productRecommendationSubject.asObservable().pipe(
       shareReplay(1) // Ensure the observable is shared and replayed to new subscribers
     );
   }

@@ -18,25 +18,12 @@ import { ProductService } from '../product.service';
 })
 export class ProductComponent implements OnInit, DoCheck {
   products$: Observable<any> = new Observable();
-  products: Product[] = [];
   showComments = false;
 
-  constructor(private httpService: HttpClient) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.httpService
-      .get('https://reqres.in/api/products')
-      .subscribe((response: any) => {
-        this.products = [...response.data, ...response.data];
-      });
-    // setTimeout(() => {
-    //   this.products = [{ id: 1, name: 'Product 1', year: 2021, color: 'red' }];
-    // }, 5000);
-    // Make the call to get products
-    // this.products$ = this.productService.getProducts();
-    // this.products$.subscribe((response: any) => {
-    //   console.log('Products fetched:', response);
-    // });
+    this.products$ = this.productService.getProducts();
   }
 
   ngDoCheck(): void {
