@@ -29,7 +29,6 @@ export class ProductService {
   };
 
   private productSubject = new Subject<any>();
-  private hasFetchedRealData = false;
 
   constructor(private http: HttpClient) {
     // Start the process of emitting data

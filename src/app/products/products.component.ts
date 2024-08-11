@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, effect, signal } from '@angular/core';
+import { Component, DoCheck, OnInit, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   Product,
@@ -19,7 +19,7 @@ import { ProductService } from '../products-service.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, DoCheck {
   products = this.productService.productSignal;
   cartItems: Product[] = [];
   constructor(private productService: ProductService) {}
@@ -43,6 +43,10 @@ export class ProductComponent implements OnInit {
     //     color: 'Black',
     //   },
     // ]);
+  }
+
+  ngDoCheck(): void {
+    console.log('Change detection triggered in ProductComponent!');
   }
 
   addProductToCart(product: Product): void {
