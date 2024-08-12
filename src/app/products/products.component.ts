@@ -1,11 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  Product,
-  ProductDetailsComponent,
-} from '../product-detials/product-details.component';
-import { ProductRecommendationsComponent } from '../product-recommendations/product-recommendations.component';
+import { ProductDetailsComponent } from '../product-detials/product-details.component';
 import { Observable } from 'rxjs';
 import { ProductService } from '../product.service';
 
