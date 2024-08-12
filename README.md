@@ -1,27 +1,65 @@
-# MoviesApp
+# E-Commerce Playground
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+This repository serves as a playground for experimenting with different Angular change detection strategies, specifically comparing **Zone.js-based** and **Signal-based** (Zoneless) approaches. The application is a simple e-commerce frontend that demonstrates how change detection can impact performance in Angular applications.
 
-## Development server
+## Branches
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### 1. `zonejs-change-detection` (Zone.js-based Change Detection)
 
-## Code scaffolding
+This branch uses the traditional Angular change detection mechanism that relies on Zone.js. In this setup, Angular automatically tracks and triggers change detection across the entire component tree in response to user events or asynchronous operations.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 2. `signal-based-change-detection` (Signal-based Change Detection)
 
-## Build
+This branch experiments with a zoneless approach, where Angular signals are used for change detection instead of Zone.js. This method offers more granular control over change detection, potentially reducing the number of components that Angular needs to check and improving overall performance.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Switching Between Branches
 
-## Running unit tests
+To fully explore the differences between these two approaches, you can switch between the `zonejs-change-detection` and `signal-based-change-detection` branches and observe how change detection is handled in each scenario.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Steps to Switch Branches
 
-## Running end-to-end tests
+1. Clone the repository:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   ```bash
+   git clone https://github.com/ayuba-dn/ecommerce-playground.git
+   cd ecommerce-playground
+   ```
 
-## Further help
+2. Checkout the desired branch:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+   - For Zone.js-based change detection:
+
+     ```bash
+     git checkout zonejs-change-detection
+     ```
+
+   - For Signal-based (Zoneless) change detection:
+     ```bash
+     git checkout signal-based-change-detection
+     ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Run the application:
+
+   ```bash
+   ng serve
+   ```
+
+5. Open your browser and navigate to `http://localhost:4200` to see the application in action.
+
+## Purpose of the Experiment
+
+This playground is designed to help Angular developers understand the impact of different change detection strategies on application performance. By comparing the Zone.js-based approach with a Signal-based approach, you can gain insights into:
+
+- How Zone.js triggers change detection across components.
+- How Angular signals provide more fine-grained control over change detection.
+- The potential performance improvements when using a Zoneless approach.
+
+## Contributing
+
+Feel free to fork this repository, make changes, and submit pull requests. If you find any issues or have suggestions for improve
