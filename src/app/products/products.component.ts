@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, DoCheck, OnInit, effect, signal } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   Product,
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { ProductRecommendationsComponent } from '../product-recommendations/product-recommendations.component';
-import { ProductService } from '../products-service.service';
+import { API_URL, ProductService } from '../products-service.service';
 
 @Component({
   selector: 'app-products',
@@ -15,6 +14,13 @@ import { ProductService } from '../products-service.service';
     ProductDetailsComponent,
     ProductRecommendationsComponent,
     CommonModule,
+  ],
+  providers: [
+    {
+      provide: API_URL,
+      useValue: 'https://reqres.in/api2/productsddd',
+    },
+    ProductService,
   ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],

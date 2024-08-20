@@ -1,8 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Inject, Injectable, InjectionToken, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject, timer } from 'rxjs';
 import { switchMap, tap, shareReplay } from 'rxjs/operators';
-import { Product } from './product-detials/product-details.component';
+
+export const API_URL = new InjectionToken<string>('API_URL');
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { Product } from './product-detials/product-details.component';
 export class ProductService {
   readonly productSignal = signal<any>([]);
   readonly recommendationsSignal = signal<any[]>([]);
-  private apiUrl = 'https://reqres.in/api/products';
+  // private apiUrl = 'https://reqres.in/api/products';
   private mockData = {
     data: [
       {
@@ -30,9 +31,13 @@ export class ProductService {
 
   private productSubject = new Subject<any>();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    @Inject(API_URL) private apiUrl: string
+  ) {
     // Start the process of emitting data
     this.initializeDataStream();
+    console.log('API URL is: ', this.apiUrl);
   }
 
   private initializeDataStream() {

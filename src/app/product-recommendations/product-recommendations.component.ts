@@ -5,12 +5,19 @@ import {
   ProductDetailsComponent,
 } from '../product-detials/product-details.component';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../products-service.service';
+import { API_URL, ProductService } from '../products-service.service';
 
 @Component({
   selector: 'product-recommendations',
   standalone: true,
   imports: [ProductDetailsComponent, CommonModule],
+  providers: [
+    {
+      provide: API_URL,
+      useValue: 'https://reqres.in/api/productsss',
+    },
+    ProductService,
+  ],
   templateUrl: './product-recommendations.component.html',
   styleUrl: './product-recommendations.component.scss',
 })
