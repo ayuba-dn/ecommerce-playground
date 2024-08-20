@@ -1,4 +1,4 @@
-import { Component, DoCheck, inject } from '@angular/core';
+import { Component, DoCheck, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from '../product/product.component';
 import { API_URL, ProductService } from '../products-service.service';
@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
   templateUrl: './product-recommendations.component.html',
   styleUrl: './product-recommendations.component.scss',
 })
-export class ProductRecommendationsComponent implements DoCheck {
+export class ProductRecommendationsComponent implements DoCheck, OnInit {
   products$: Observable<any> = new Observable();
   loggingService = inject(LoggingService);
 
