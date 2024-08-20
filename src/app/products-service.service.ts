@@ -1,7 +1,7 @@
 import { Inject, Injectable, InjectionToken, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, Subject, timer } from 'rxjs';
-import { switchMap, tap, shareReplay } from 'rxjs/operators';
+import { of, timer } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 export const API_URL = new InjectionToken<string>('API_URL');
 
@@ -11,7 +11,6 @@ export const API_URL = new InjectionToken<string>('API_URL');
 export class ProductService {
   readonly productSignal = signal<any>([]);
   readonly recommendationsSignal = signal<any[]>([]);
-  // private apiUrl = 'https://reqres.in/api/products';
   private mockData = {
     data: [
       {
@@ -29,15 +28,13 @@ export class ProductService {
     ],
   };
 
-  private productSubject = new Subject<any>();
-
   constructor(
     private http: HttpClient,
     @Inject(API_URL) private apiUrl: string
   ) {
     // Start the process of emitting data
     this.initializeDataStream();
-    console.log('API URL is: ', this.apiUrl);
+    //console.log('API URL is: ', this.apiUrl);
   }
 
   private initializeDataStream() {
@@ -46,7 +43,6 @@ export class ProductService {
       .get<any>(this.apiUrl)
       .pipe(
         tap((data) => {
-          console.log('Fetched real data:', data);
           this.productSignal.set(data.data);
           this.recommendationsSignal.set(data.data);
         }),
@@ -56,11 +52,5 @@ export class ProductService {
         })
       )
       .subscribe((data) => this.recommendationsSignal.set(data.data));
-  }
-
-  getProducts(): Observable<any> {
-    return this.productSubject.asObservable().pipe(
-      shareReplay(1) // Ensure the observable is shared and replayed to new subscribers
-    );
   }
 }

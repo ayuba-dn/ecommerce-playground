@@ -1,45 +1,37 @@
-import { HttpClient } from '@angular/common/http';
 import {
   Component,
   DoCheck,
   EventEmitter,
+  inject,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductQuantityComponent } from '../product-quantity/product-quantity.component';
-
-export interface Product {
-  id: number;
-  name: string;
-  year: number;
-  color: string;
-}
+import { LoggingService } from '../core/services/logging.service';
+import { Product } from '../core/models/product.model';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   providers: [DialogService],
-  templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.scss',
+  templateUrl: './product.component.html',
+  styleUrl: './product.component.scss',
 })
-export class ProductDetailsComponent implements DoCheck {
+export class ProductComponent implements DoCheck {
   @Output() addToCart = new EventEmitter<Product>();
   @Input() product!: Product;
-
+  loggingService = inject(LoggingService);
   ref!: DynamicDialogRef;
 
   constructor(private dialogService: DialogService) {}
 
   ngDoCheck(): void {
-    console.log('Change detection triggered in DetailsComponent!');
+    this.loggingService.logWarning(
+      'Change detection triggered in ProductComponent!'
+    );
   }
 
-  // addToCart(): void {
-  //   console.log('Product added to cart!');
-  //   this.showQuantityDialog();
-  // }
   emitAddToCart(): void {
     console.log('event emitted');
     this.addToCart.emit(this.product);

@@ -1,35 +1,31 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, DoCheck, OnInit } from '@angular/core';
-import {
-  Product,
-  ProductDetailsComponent,
-} from '../product-detials/product-details.component';
+import { Component, DoCheck, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProductComponent } from '../product/product.component';
 import { API_URL, ProductService } from '../products-service.service';
+import { LoggingService } from '../core/services/logging.service';
 
 @Component({
   selector: 'product-recommendations',
   standalone: true,
-  imports: [ProductDetailsComponent, CommonModule],
+  imports: [ProductComponent, CommonModule],
   providers: [
     {
       provide: API_URL,
-      useValue: 'https://reqres.in/api/productsss',
+      useValue: 'https://reqres.in/api/products',
     },
     ProductService,
   ],
   templateUrl: './product-recommendations.component.html',
   styleUrl: './product-recommendations.component.scss',
 })
-export class ProductRecommendationsComponent implements OnInit, DoCheck {
+export class ProductRecommendationsComponent implements DoCheck {
   products = this.productService.recommendationsSignal;
-  showComments = false;
-
+  loggingService = inject(LoggingService);
   constructor(private productService: ProductService) {}
 
-  ngOnInit(): void {}
-
   ngDoCheck(): void {
-    console.log('Change detection triggered in RecommendationComponent!');
+    this.loggingService.logWarning(
+      'Change detection triggered in RecommendationComponent!'
+    );
   }
 }
