@@ -1,6 +1,6 @@
 import {
   ApplicationConfig,
-  provideExperimentalZonelessChangeDetection,
+  //provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    //provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(),
     provideAnimations(),

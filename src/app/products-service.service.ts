@@ -1,7 +1,7 @@
 import { Inject, Injectable, InjectionToken, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, timer } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { Observable, of, Subject, timer } from 'rxjs';
+import { shareReplay, switchMap, tap } from 'rxjs/operators';
 
 export const API_URL = new InjectionToken<string>('API_URL');
 
@@ -9,8 +9,9 @@ export const API_URL = new InjectionToken<string>('API_URL');
   providedIn: 'root',
 })
 export class ProductService {
-  readonly productSignal = signal<any>([]);
-  readonly recommendationsSignal = signal<any[]>([]);
+  private productSubject = new Subject<any>();
+  private productRecommendationSubject = new Subject<any>();
+
   private mockData = {
     data: [
       {
@@ -43,14 +44,26 @@ export class ProductService {
       .get<any>(this.apiUrl)
       .pipe(
         tap((data) => {
-          this.productSignal.set(data.data);
-          this.recommendationsSignal.set(data.data);
+          this.productSubject.next(data);
+          this.productRecommendationSubject.next(data);
         }),
         switchMap(() => {
           // After emitting real data, wait 5 seconds and then emit mocked data
           return timer(5000).pipe(switchMap(() => of(this.mockData)));
         })
       )
-      .subscribe((data) => this.recommendationsSignal.set(data.data));
+      .subscribe((data) => this.productRecommendationSubject.next(data));
+  }
+
+  getProducts(): Observable<any> {
+    return this.productSubject.asObservable().pipe(
+      shareReplay(1) // Ensure the observable is shared and replayed to new subscribers
+    );
+  }
+
+  getProductsRecommendations(): Observable<any> {
+    return this.productRecommendationSubject.asObservable().pipe(
+      shareReplay(1) // Ensure the observable is shared and replayed to new subscribers
+    );
   }
 }

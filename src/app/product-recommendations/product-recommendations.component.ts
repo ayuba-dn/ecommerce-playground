@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductComponent } from '../product/product.component';
 import { API_URL, ProductService } from '../products-service.service';
 import { LoggingService } from '../core/services/logging.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'product-recommendations',
@@ -19,9 +20,14 @@ import { LoggingService } from '../core/services/logging.service';
   styleUrl: './product-recommendations.component.scss',
 })
 export class ProductRecommendationsComponent implements DoCheck {
-  products = this.productService.recommendationsSignal;
+  products$: Observable<any> = new Observable();
   loggingService = inject(LoggingService);
+
   constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.products$ = this.productService.getProductsRecommendations();
+  }
 
   ngDoCheck(): void {
     this.loggingService.logWarning(

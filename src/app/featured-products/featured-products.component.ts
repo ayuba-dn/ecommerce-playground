@@ -1,10 +1,11 @@
-import { Component, DoCheck, inject } from '@angular/core';
+import { Component, DoCheck, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductRecommendationsComponent } from '../product-recommendations/product-recommendations.component';
 import { API_URL, ProductService } from '../products-service.service';
 import { ProductComponent } from '../product/product.component';
 import { LoggingService } from '../core/services/logging.service';
 import { Product } from '../core/models/product.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'featured-products',
@@ -20,13 +21,16 @@ import { Product } from '../core/models/product.model';
   templateUrl: './featured-products.component.html',
   styleUrls: ['./featured-products.component.scss'],
 })
-export class FeaturedProductComponent implements DoCheck {
-  products = this.productService.productSignal;
+export class FeaturedProductComponent implements DoCheck, OnInit {
+  products$: Observable<any> = new Observable();
   cartItems: Product[] = [];
   loggingService = inject(LoggingService);
 
   constructor(private productService: ProductService) {}
 
+  ngOnInit(): void {
+    this.products$ = this.productService.getProducts();
+  }
   ngDoCheck(): void {
     this.loggingService.logWarning(
       'Change detection triggered in FeaturedProductComponent!'
