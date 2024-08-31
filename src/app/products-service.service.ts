@@ -2,6 +2,7 @@ import { Inject, Injectable, InjectionToken, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, timer } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { Product } from './core/models/product.model';
 
 export const API_URL = new InjectionToken<string>('API_URL');
 
@@ -9,8 +10,8 @@ export const API_URL = new InjectionToken<string>('API_URL');
   providedIn: 'root',
 })
 export class ProductService {
-  readonly productSignal = signal<any>([]);
-  readonly recommendationsSignal = signal<any[]>([]);
+  readonly productSignal = signal<Product[]>([]);
+  readonly recommendationsSignal = signal<Product[]>([]);
   private mockData = {
     data: [
       {
@@ -40,7 +41,9 @@ export class ProductService {
   private initializeDataStream() {
     // Emit real data first
     this.http
-      .get<any>(this.apiUrl)
+      .get<{
+        data: Product[];
+      }>(this.apiUrl)
       .pipe(
         tap((data) => {
           this.productSignal.set(data.data);

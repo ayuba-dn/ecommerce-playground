@@ -1,13 +1,13 @@
 import { Component, DoCheck, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductRecommendationsComponent } from '../product-recommendations/product-recommendations.component';
-import { API_URL, ProductService } from '../products-service.service';
-import { ProductComponent } from '../product/product.component';
-import { LoggingService } from '../core/services/logging.service';
-import { Product } from '../core/models/product.model';
+import { API_URL, ProductService } from '../../products-service.service';
+import { ProductComponent } from '../../ui/product/product.component';
+import { LoggingService } from '../../core/services/logging.service';
+import { Product } from '../../core/models/product.model';
 
 @Component({
-  selector: 'featured-products',
+  selector: 'app-featured-products',
   standalone: true,
   imports: [ProductComponent, ProductRecommendationsComponent, CommonModule],
   providers: [
@@ -23,6 +23,7 @@ import { Product } from '../core/models/product.model';
 export class FeaturedProductComponent implements DoCheck {
   products = this.productService.productSignal;
   cartItems: Product[] = [];
+
   loggingService = inject(LoggingService);
 
   constructor(private productService: ProductService) {}

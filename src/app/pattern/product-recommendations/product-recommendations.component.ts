@@ -1,11 +1,11 @@
 import { Component, DoCheck, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductComponent } from '../product/product.component';
-import { API_URL, ProductService } from '../products-service.service';
-import { LoggingService } from '../core/services/logging.service';
+import { ProductComponent } from '../../ui/product/product.component';
+import { API_URL, ProductService } from '../../products-service.service';
+import { LoggingService } from '../../core/services/logging.service';
 
 @Component({
-  selector: 'product-recommendations',
+  selector: 'app-product-recommendations',
   standalone: true,
   imports: [ProductComponent, CommonModule],
   providers: [

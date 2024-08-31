@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductQuantityComponent } from '../product-quantity/product-quantity.component';
-import { LoggingService } from '../core/services/logging.service';
-import { Product } from '../core/models/product.model';
+import { LoggingService } from '../../core/services/logging.service';
+import { Product } from '../../core/models/product.model';
 
 @Component({
   selector: 'app-product',

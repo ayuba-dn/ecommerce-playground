@@ -19,8 +19,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './product-quantity.component.scss',
 })
 export class ProductQuantityComponent {
-  visible: boolean = false;
-  username: string = '';
+  visible = false;
+  username = '';
 
   showDialog() {
     this.visible = true;
