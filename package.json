@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "analyze:deps:all": "madge src/main.ts --ts-config tsconfig.json --image ./deps/_all.png"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +23,7 @@
     "aws-sdk": "^2.1663.0",
     "d3": "^7.9.0",
     "lodash": "^4.17.21",
+    "madge": "^8.0.0",
     "moment": "^2.30.1",
     "primeng": "^17.18.4",
     "rxjs": "~7.8.0",
